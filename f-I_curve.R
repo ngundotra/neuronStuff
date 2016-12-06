@@ -1,3 +1,9 @@
+# Noah Gundotra (MSN) 12-5-16
+# This document could be put into StageOne.R,
+#   however we figured that it is simpler putting
+#   these functions here. These two functions are
+#   used for generating F-I curve. See functions
+
 # getAvgFrequency
 #               takes spike array
 #               returns average frequency of spikes

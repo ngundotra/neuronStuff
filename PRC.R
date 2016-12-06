@@ -1,5 +1,9 @@
-# Noah Gundotra, Maya Mysore, Srijani Saha
-# Perturbing voltage simulation
+# Noah Gundotra (MSN) 12-5-16
+# Updated neuron simulator that allows us to
+#   interact with PRC at any given time.
+#   Times and voltages we want to perturb neuron
+#   with are given in Nx2 "perturb" matrix.
+#   See function for more. No example given. My bad.
 
 simulateLIF = function(milliseconds,
                        perturb,            # matrix of times and amt voltage

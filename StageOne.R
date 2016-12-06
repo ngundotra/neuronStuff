@@ -1,5 +1,20 @@
+# Noah Gundotra (MSN) 12-5-16
+# Main Script (run this one first)
+#   Responsible for setting up basic cell simulation.
+#   We created a function to simulate a neuron and a
+#   function to retroactively find, record, and plot spikes.
+#   These functions are simulateLIF and getSpike.
+#
+# To simulate a cell and plot it, conjoin the two calls
+# ex getSpike(simulateLIF(10, 5, 20, FALSE)) 
+#     gives you an array of times where the neuron spiked
+#     and plots the neuron's voltage over the simulation time
+#
+# Running the whole script will give you a basic example
+#
+
 # simulateLIF
-#         returns a history of the voltage of a simulated neuron
+#         returns an array of recorded voltage of a simulated neuron
 #         dt = 0.0105 and iter = 1000 --> ~100 ms in real time
 #         (approximated using Brian code in paper)
 simulateLIF = function(milliseconds,
@@ -39,9 +54,9 @@ simulateLIF = function(milliseconds,
   return(v)
 }
 # getSpike
-#         takes in an array of voltages
+#         takes in an array of voltages (from simulateLIF)
 #         records spike when v = 0
-#         returns spike times
+#         returns spike times + plots spike times
 getSpike = function(voltHist, plot_on=TRUE) {
   iter = length(voltHist)
   if(plot_on) {
@@ -63,7 +78,6 @@ getSpike = function(voltHist, plot_on=TRUE) {
   return(spikeTimes)
 }
 
-# Calling the stack
 # First simulating a neuron
 # Then getting where it spiked
 #     since plot_on is set to True by default, 
