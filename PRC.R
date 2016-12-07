@@ -10,7 +10,7 @@ simulateLIF = function(milliseconds,
                        absRefractory = 5,
                        stimDefault = 20
                        ) { 
-  # returns voltage for both cells... (unperturbed comes first)
+  # returns voltage for both cells... (unperturbed comes first, perturbed comes next)
   # iter            - time (no units)
   # absRefractory   - time of refractory (no units)
   iter = milliseconds*1000
@@ -26,6 +26,8 @@ simulateLIF = function(milliseconds,
   activeRefractory = 0  
   c = 1                   # index
   
+  # "dormant" refers to unperturbed neuron
+  # "active" refers to perturbed neuron
   while (c < iter) {
     if (dormantRefractory <= 0) {
       # this sets up refractory period
@@ -43,11 +45,13 @@ simulateLIF = function(milliseconds,
     else {
       activeRefractory = activeRefractory - 1
     }
-    for (i in 1:dim(perturb)[1]) {
+    # loop through times to perturb neuron
+    for (i in c:dim(perturb)[1]) {
       if (perturb[i,1]*1000 == c) { # there should be max 1 voltage per time
         activeCell[c+1] = activeCell[c] + perturb[i,2]
       }
     }
+    # reset cell if refractory period up
     if (dormantCell[c + 1] > 15) {
       dormantCell[c + 1] = 0
       dormantRefractory = absRefractory
@@ -61,6 +65,9 @@ simulateLIF = function(milliseconds,
   return(cbind(dormantCell, activeCell))
 }
 
+# set up & running the actual code
+
+# setting up times to perturb the neuron
 time = 1
 perturbMat = matrix(2, # voltage perturbation
                  nrow=5,
@@ -74,6 +81,9 @@ perturbHist = voltageMat[,2]
 
 iter = dim(voltageMat)[1]
 
+# plotting the results of the simulation
+# dotted line is unperturbed neuron
+# full line is perturbed neuron
 plot((1:iter) / iter,
      unperturbHist,
      lty=23,
