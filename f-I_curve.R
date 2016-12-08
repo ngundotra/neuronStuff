@@ -1,4 +1,4 @@
-# Noah Gundotra (MSN) 12-5-16
+# Noah Gundotra (MSN) 12-6-16
 # This document could be put into StageOne.R,
 #   however we figured that it is simpler putting
 #   these functions here. These two functions are
@@ -23,21 +23,22 @@ getAvgFrequency = function(spikeTimes) {
 #               this nueron is parameterized within FI
 getFI = function(stimMin,
                   stimMax,
-                  resolution = 10, # picks #resolution values btwn Min and Max
+                  resolution = 100, # picks resolution values btwn Min and Max
                   max_time = 1, # in milliseconds
+                  refractory = 0,
                   plot_on = TRUE) {
   freqHist = array(0, resolution)
   for(i in (1:resolution)) {
     stim = stimMin + i*(stimMax-stimMin)/resolution
     print(stim)
-    voltHist = simulateLIF(max_time, absRefractory = 0, stimDefault=stim) # simulates neuron
+    voltHist = simulateLIF(max_time, absRefractory = refractory, stimDefault=stim) # simulates neuron
     spikeHist = getSpike(voltHist, plot_on=FALSE)     # finds spike times
     freqHist[i] = getAvgFrequency(spikeHist)                # gets avg freq for given stim
   }
   if (plot_on) {
     plot((1:resolution)*(stimMax-stimMin)/resolution+stimMin,
          freqHist,
-         type='o',
+         type='l',
          xlab="Stimulus (mV)",
          ylab="Frequency (Hz)"
     )

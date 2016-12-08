@@ -1,4 +1,4 @@
-# Noah Gundotra (MSN) 12-5-16
+# Noah Gundotra (MSN) 12-6-16
 # Main Script (run this one first)
 #   Responsible for setting up basic cell simulation.
 #   We created a function to simulate a neuron and a
@@ -30,7 +30,7 @@ simulateLIF = function(milliseconds,
   } else {
     stim = array(stimDefault, iter)
   }
-  dt = .0105                # seemed like a good value
+  dt = .0105/100          # seemed like a good value
   R = 1                   # resistance
   T = 1                   # time membrane onstant
   refractory = 0          # set to 0 (assuming neuron hasn't spiked b4 simulation start)
@@ -82,6 +82,6 @@ getSpike = function(voltHist, plot_on=TRUE) {
 # Then getting where it spiked
 #     since plot_on is set to True by default, 
 #     getSpike will plot the spikes on the graph
-num_iter = 1000
+
 vHistory = simulateLIF(1)
 sHistory = getSpike(vHistory)
